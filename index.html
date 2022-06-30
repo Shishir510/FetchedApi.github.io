@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<style>
+		#employees {
+			border: 2px solid black;
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid black;
+		}
+	</style>
+</head>
+
+<body>
+	<h1 style="text-align:center;text-decoration:underline double black 2px;">Fetched API</h1>
+
+	<!-- table for showing data -->
+	<table id="employees"></table>
+	<script>
+		// api url
+		const api_url =
+			"https://jsonplaceholder.typicode.com/posts";
+
+
+		// Defining async function
+		async function getapi(url) {
+
+			// Storing response
+			const response = await fetch(url);
+
+			// Storing data in form of JSON
+			var data = await response.json();
+			console.log(data);
+			show(data);
+		}
+		// Calling that async function
+		getapi(api_url);
+
+
+		// Function to define innerHTML for HTML table
+		function show(data) {
+			let tab =
+				`<tr>
+		<th>UserId</th>
+		<th>Id</th>
+		<th>title</th>
+		<th>body</th>
+	</tr>`;
+
+			// Loop to access all rows
+			for (let r of data) {
+				tab = tab +
+					`<tr>
+    	<td>${r.userId} </td>
+    	<td>${r.id}</td>
+    	<td>${r.title}</td>
+    	<td>${r.body}</td>		
+    </tr>`;
+			};
+
+			// Setting innerHTML as tab variable
+			document.getElementById("employees").innerHTML = tab;
+		}
+
+	</script>
+
+</body>
+
+</html>
